@@ -1,0 +1,65 @@
+name: Publicar RG Vendas e Estoque 1.5.0
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/publicar-1.5.0.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: publicar-rg-vendas-1.5.0
+  cancel-in-progress: false
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: Adilson26/rg-vendas-atualizacoes
+      MANIFEST_B64: 'eyJzY2hlbWEiOjEsInByb2R1Y3QiOiJyZy12ZW5kYXMtZXN0b3F1ZSIsInJlbGVhc2VzIjp7IndpbmRvd3MiOnsidmVyc2lvbiI6IjEuNS4wIiwibm90ZXMiOiJUcsOqcyBtb2RlbG9zIHByb2Zpc3Npb25haXMgZGUgcmVjaWJvIGUgb3LDp2FtZW50by4gQXZpc28gZGUgZmFsaGEgZGUgaW5zdGFsYcOnw6NvIHZpc8OtdmVsIGRlbnRybyBkYSBqYW5lbGEgZGUgYXR1YWxpemHDp8OjbywgbWFudGVuZG8gbyBwcm9ncmFtYSBhYmVydG8gZSBvIGRvd25sb2FkIGd1YXJkYWRvLiIsInVybCI6Imh0dHBzOi8vZ2l0aHViLmNvbS9BZGlsc29uMjYvcmctdmVuZGFzLWF0dWFsaXphY29lcy9yZWxlYXNlcy9kb3dubG9hZC92MS41LjAvUkctVmVuZGFzLWUtRXN0b3F1ZS1JbnN0YWxhZG9yLTEuNS4wLmV4ZSIsImJ5dGVzIjoxMjQ4MTQ2NTIsInNoYTI1NiI6ImYwMjdlZjliNzY2NzAxYWEwMzA4YzFjYzJmNzY3ZjYyZThlMzI5NzQ2OTNhY2RlNTM0MzNlMzg3ZWRjYjIzOGYifSwiYW5kcm9pZCI6eyJ2ZXJzaW9uIjoiMS41LjAiLCJub3RlcyI6IlZlcnPDo28gMS41LjAgY29tIHRyw6pzIG1vZGVsb3MgcHJvZmlzc2lvbmFpcyBkZSByZWNpYm8gZSBvcsOnYW1lbnRvLCBlc2NvbGhhIHZpc3VhbCBlIHByw6l2aWEuIE1hbnTDqW0gYSBjb3JyZcOnw6NvIGRhIGV4cG9ydGHDp8OjbyBkZSBQREYgbm8gQW5kcm9pZC4iLCJ1cmwiOiJodHRwczovL2dpdGh1Yi5jb20vQWRpbHNvbjI2L3JnLXZlbmRhcy1hdHVhbGl6YWNvZXMvcmVsZWFzZXMvZG93bmxvYWQvdjEuNS4wL1JHLVZlbmRhcy1lLUVzdG9xdWUtQW5kcm9pZC0xLjUuMC5hcGsiLCJieXRlcyI6MjE0MzgwNzYsInNoYTI1NiI6IjgyNWVkMjMxNjBiYjY5YjU5NjhlYmMyZThkNzBiYmFmNmM0ZmRmN2I0MWI4NTZkZTA5YTRjZmY5Y2I4ZDBiZTEifX19'
+      MIRRORS_B64: 'eyJmaWxlcyI6eyJ3aW5kb3dzIjp7InVybCI6Imh0dHBzOi8vcmctYXJ0ZXMtZS1wZXJzb25hbGl6YWRvcy0tcmctdmVuZGFzLTEtNS0wLWx2cHNwdHN3LndlYi5hcHAvUkctVmVuZGFzLWUtRXN0b3F1ZS1JbnN0YWxhZG9yLTEuNS4wLmV4ZSIsInNoYTI1NiI6ImYwMjdlZjliNzY2NzAxYWEwMzA4YzFjYzJmNzY3ZjYyZThlMzI5NzQ2OTNhY2RlNTM0MzNlMzg3ZWRjYjIzOGYiLCJieXRlcyI6MTI0ODE0NjUyfSwiYW5kcm9pZCI6eyJ1cmwiOiJodHRwczovL3JnLWFydGVzLWUtcGVyc29uYWxpemFkb3MtLXJnLXZlbmRhcy0xLTUtMC1sdnBzcHRzdy53ZWIuYXBwL1JHLVZlbmRhcy1lLUVzdG9xdWUtQW5kcm9pZC0xLjUuMC5hcGsiLCJzaGEyNTYiOiI4MjVlZDIzMTYwYmI2OWI1OTY4ZWJjMmU4ZDcwYmJhZjZjNGZkZjdiNDFiODU2ZGUwOWE0Y2ZmOWNiOGQwYmUxIiwiYnl0ZXMiOjIxNDM4MDc2fX0sImV4cGlyZXNBdCI6IjIwMjYtMTEtMDhUMjI6MDA6MTJaIiwiY29udGFpbnNDcmVkZW50aWFscyI6ZmFsc2V9'
+      NOTES_B64: 'VHLDqnMgbW9kZWxvcyBwcm9maXNzaW9uYWlzIGRlIHJlY2libyBlIG9yw6dhbWVudG86IENsw6Fzc2ljbywgRXhlY3V0aXZvIGUgRGV0YWxoYWRvLCBjb20gZXNjb2xoYSB2aXN1YWwsIHByw6l2aWEgZSBwcmVmZXLDqm5jaWEgc2FsdmEgbmVzdGUgYXBhcmVsaG8uCgpEYWRvcyBkYSBlbXByZXNhLCBkbyBjbGllbnRlLCBwcm9kdXRvcywgZnJldGUsIHRheGFzLCBkZXNjb250b3MgZSBvYnNlcnZhw6fDtWVzIG9yZ2FuaXphZG9zIG5vIGRvY3VtZW50by4KCldpbmRvd3MgMS41LjA6IG8gYXZpc28gZGUgZmFsaGEgYW8gaW5pY2lhciBhIGluc3RhbGHDp8OjbyBhcGFyZWNlIGRlbnRybyBkYSBqYW5lbGEgZGUgYXR1YWxpemHDp8Ojby4gTyBwcm9ncmFtYSBwZXJtYW5lY2UgYWJlcnRvIGUgbWFudMOpbSBvIGFycXVpdm8gYmFpeGFkbyBxdWFuZG8gYSBhYmVydHVyYSBkbyBpbnN0YWxhZG9yIGZhbGhhLgoKQW5kcm9pZCAxLjUuMDogaW5jbHVpIG9zIHRyw6pzIG1vZGVsb3MgZGUgZG9jdW1lbnRvIGUgbWFudMOpbSBhIGNvcnJlw6fDo28gZGEgZXhwb3J0YcOnw6NvIGRlIFBERiBwb3IgYXJxdWl2byB0ZW1wb3LDoXJpby4KCkVzdGEgdmVyc8OjbyBuw6NvIGFsdGVyYSBhcyBwb2zDrXRpY2FzIGRlIHNlZ3VyYW7Dp2EgZG8gV2luZG93cy4gQSBhY2VpdGHDp8OjbyBkYSBpbnN0YWxhw6fDo28gZGVwZW5kZSBkYSB2ZXJpZmljYcOnw6NvIGRvIHNpc3RlbWEuCg=='
+    steps:
+      - name: Baixar e conferir os dois instaladores preparados
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os,json,base64,hashlib,pathlib,urllib.request,urllib.error,time
+          manifest=json.loads(base64.b64decode(os.environ['MANIFEST_B64']))
+          mirrors=json.loads(base64.b64decode(os.environ['MIRRORS_B64']))
+          pathlib.Path('current.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding='utf-8')
+          pathlib.Path('NOTAS.md').write_bytes(base64.b64decode(os.environ['NOTES_B64']))
+          sums=[]
+          for platform in ('windows','android'):
+              release=manifest['releases'][platform]
+              assert release['version']=='1.5.0'
+              source=mirrors['files'][platform]
+              assert source['sha256']==release['sha256'] and source['bytes']==release['bytes']
+              name=release['url'].rsplit('/',1)[1]
+              assert name in ('RG-Vendas-e-Estoque-Instalador-1.5.0.exe','RG-Vendas-e-Estoque-Android-1.5.0.apk')
+              digest=hashlib.sha256(); size=0
+              for attempt in range(30):
+                  try:
+                      response=urllib.request.urlopen(source['url'],timeout=180)
+                      break
+                  except urllib.error.HTTPError as error:
+                      if error.code!=404 or attempt==29: raise
+                      print('Aguardando o endereço temporário ficar pronto...',flush=True)
+                      time.sleep(15)
+              with response, open(name,'wb') as output:
+                  while True:
+                      chunk=response.read(1024*1024)
+                      if not chunk: break
+                      output.write(chunk);digest.update(chunk);size+=len(chunk)
+              assert size==release['bytes'] and digest.hexdigest()==release['sha256'],name
+              sums.append(release['sha256']+'  '+name)
+              print(name+': tamanho e SHA256 conferidos')
+          pathlib.Path('SHA256SUMS.txt').write_text('\n'.join(sums)+'\n',encoding='utf-8')
+          PY
+      - name: Criar release e publicar somente depois dos anexos
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh release create v1.5.0 --draft --target "$GITHUB_SHA" --title "RG Vendas e Estoque 1.5.0" --notes-file NOTAS.md RG-Vendas-e-Estoque-Instalador-1.5.0.exe RG-Vendas-e-Estoque-Android-1.5.0.apk current.json SHA256SUMS.txt
+          gh release edit v1.5.0 --draft=false --latest
